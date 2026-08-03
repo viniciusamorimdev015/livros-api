@@ -1,4 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
+import { CreateLivroDto } from './dto/create-livro.dto';
+import { UpdateLivroDto } from './dto/update-livro.dto';
 
 @Injectable()
 export class LivrosService {
@@ -8,16 +10,18 @@ export class LivrosService {
             id: 1,
             titulo: 'livro 1',
             autor: 'algume',
-            genero: 'Terror'
+            genero: 'Terror',
+            status: 'Lido'
         }
     ]
 
-    create(titulo: string, autor: string, genero: string){
+    create(createLivroDto: CreateLivroDto){
         const livro = {
             id: this.livros.length + 1,
-            titulo,
-            autor,
-            genero
+            titulo: createLivroDto.titulo,
+            autor: createLivroDto.autor,
+            genero: createLivroDto.genero,
+            status: createLivroDto.status
         }
 
         this.livros.push(livro)
@@ -39,16 +43,17 @@ export class LivrosService {
     }
 
 
-    update(id: string, titulo: string, autor: string, genero: string){
+    update(id: string, updateLivroDto: UpdateLivroDto){
        const livro = this.livros.find(l => l.id == +id)
 
         if(!livro){
             throw new BadRequestException(`Livro de ID ${id} não encontrado`)
         }
 
-        if(titulo)  livro.titulo = titulo
-        if(autor)  livro.autor = autor
-        if(genero)  livro.genero = genero
+        if(updateLivroDto.titulo)  livro.titulo = updateLivroDto.titulo
+        if(updateLivroDto.autor)  livro.autor = updateLivroDto.autor
+        if(updateLivroDto.genero)  livro.genero = updateLivroDto.genero
+        if(updateLivroDto.status)  livro.status = updateLivroDto.status
 
         return livro
     }
