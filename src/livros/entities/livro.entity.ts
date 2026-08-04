@@ -1,5 +1,6 @@
 import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import { AvaliacaoLivro, StatusLivro } from "../dto/create-livro.dto";
+import { StatusLivro } from "../enums/status-livro.enum";
+import { AvaliacaoLivro } from "../enums/avaliacao-livro.enum";
 
 @Entity('livros')   
 export class LivroEntity {

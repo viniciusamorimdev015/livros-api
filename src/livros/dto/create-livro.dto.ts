@@ -1,19 +1,6 @@
 import { IsEnum, IsInt, IsNotEmpty, IsOptional, IsString, Max, MaxLength, Min } from "class-validator";
-
-export enum StatusLivro {
-    LIDO = 'LIDO',
-    NAO_LIDO = 'NAO_LIDO',
-    LENDO = 'LENDO',
-    PAUSADO = 'PAUSADO',
-}
-
-export enum AvaliacaoLivro {
-    UM = 1,
-    DOIS = 2,
-    TRES = 3,
-    QUATRO = 4,
-    CINCO = 5
-}
+import { StatusLivro } from "../enums/status-livro.enum";
+import { AvaliacaoLivro } from "../enums/avaliacao-livro.enum";
 
 export class CreateLivroDto {
 
