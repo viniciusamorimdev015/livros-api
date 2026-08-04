@@ -7,13 +7,13 @@ export class LivroEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({ length: 255 })
     titulo: string;
 
-    @Column()
+    @Column({ length: 100 })
     autor: string;
 
-    @Column()
+    @Column({ length: 100 })
     genero: string;
 
     @Column({
@@ -24,9 +24,9 @@ export class LivroEntity {
     status: StatusLivro;
 
     @Column({
-        type: 'enum',
-        enum: AvaliacaoLivro,
+        type: 'smallint',
         nullable: true
+
     })
     avaliacao: AvaliacaoLivro;
 

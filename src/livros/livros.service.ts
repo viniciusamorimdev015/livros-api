@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateLivroDto } from './dto/create-livro.dto';
 import { UpdateLivroDto } from './dto/update-livro.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -22,35 +22,35 @@ export class LivrosService {
         return await this.livroRepository.find()
     }
 
-    async findOne(id: string){
-        const livro = await this.livroRepository.findOneBy({ id: +id })
+    async findOne(id: number){
+        const livro = await this.livroRepository.findOneBy({ id: id })
 
         if(!livro) {
-            throw new BadRequestException(`Livro de ID ${id} não encontrado`)
+            throw new NotFoundException(`Livro de ID ${id} não encontrado`)
         }
 
         return livro 
     }
 
 
-    async update(id: string, updateLivroDto: UpdateLivroDto){
+    async update(id: number, updateLivroDto: UpdateLivroDto){
       const livro = await this.livroRepository.preload({
-        id: +id,
+        id,
         ...updateLivroDto
       })
 
       if(!livro){
-        throw new BadRequestException(`Livro de ID ${id} não encontrado`)
+        throw new NotFoundException(`Livro de ID ${id} não encontrado`)
       }
 
       return await this.livroRepository.save(livro)
     }
 
-    async remove(id: string){
+    async remove(id: number){
         const livro = await this.findOne(id)
 
         if(!livro){
-            throw new BadRequestException(`Livro de ID ${id} não encontrado`)
+            throw new NotFoundException(`Livro de ID ${id} não encontrado`)
         }
 
         await this.livroRepository.remove(livro)    
