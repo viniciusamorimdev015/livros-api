@@ -6,7 +6,6 @@ import { ParsePositiveIntPipe } from './pipes/parse-positive-int.pipe';
 
 
 @Controller('livros')
-@UsePipes(ParsePositiveIntPipe)
 export class LivrosController {
 
     constructor(private readonly livrosService: LivrosService) {}
@@ -24,20 +23,20 @@ export class LivrosController {
     }
 
     @Get(':id')
-    findOne(@Param('id') id: number){
+    findOne(@Param('id', ParsePositiveIntPipe) id: number){
         return this.livrosService.findOne(id)
     }
 
     @Patch(':id')
     update(
-        @Param('id') id: number,
+        @Param('id', ParsePositiveIntPipe) id: number,
         @Body() updateLivroDto: UpdateLivroDto
     ){
         return this.livrosService.update(id, updateLivroDto)
     }
 
     @Delete(':id')
-    remove(@Param('id') id: number){
+    remove(@Param('id', ParsePositiveIntPipe) id: number){
         return this.livrosService.remove(id)
     }
 

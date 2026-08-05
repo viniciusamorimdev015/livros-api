@@ -49,10 +49,6 @@ export class LivrosService {
     async remove(id: number){
         const livro = await this.findOne(id)
 
-        if(!livro){
-            throw new NotFoundException(`Livro de ID ${id} não encontrado`)
-        }
-
         await this.livroRepository.remove(livro)    
 
         return { message: `Livro de ID ${id} removido com sucesso` }
